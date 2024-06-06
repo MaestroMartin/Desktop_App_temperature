@@ -10,17 +10,19 @@ class Login:
     self.name = username
     self.pasword = password 
 
-  def name(self):
+  def name(self, username, password):
     if username in data:
       print("You have correct username")
     elif len(username) <= 6:
       print("you have short username")
 
   username = input("Enter your username:\n")
-
-  def pasword(self):
+  password = input("Enter your password:\n")
+  def pasword(self, username, password):
     if password not in username:
       return username 
+    elif len(password) <= 6:
+      print("you have shor 
     else:
       print("you are succesfull loged")
   
