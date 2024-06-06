@@ -1,7 +1,10 @@
 import json 
 
 class Login:
-  
+  with open("ID2.json","r") as file:
+    data = file.read()
+    objekt = json.loads(data)
+    print(objekt)
   
   def __init__(self, username, pasword):
     self.name = username
