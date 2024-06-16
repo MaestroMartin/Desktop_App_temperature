@@ -1,53 +1,63 @@
-import json 
+import json
 
 
 class Registration:
     def __init__(self, username, password, data):
         self.username = username
         self.password = password
-        self.data = data
+        self.data = self.load()
 
-    @staticmethod
-    def load(file_path):
-        with open("ID2.json","r") as file:
-            data = file.read()
-            objekt = json.loads(data)
-            print(objekt)
-    
-    def first_part(self,entered_username):
+    def load(self):
+        try:
+            with open("ID2.json", "r") as file:
+                data = json.load(file)
+                return data["users"]
+        except FileNotFoundError:
+            print("JSON file not found.")
+            return []
+        except json.JSONDecodeError:
+            print("Error decoding Json.")
+            return []
+
+    def first_part(self, entered_username):
         if len(entered_username) <= 6:
-            print("you have short username!")
+            print("You have a short username!")
             return entered_username
-    
-    def second_part(self,entered_pasword,entered_username):
-        if len(entered_pasword) <= 6:
-            print("You have short pasword!")
-        elif entered_again_pasword <= 6:
-            print("You have short pasword!")
-            return entered_username 
-        elif entered_password != entered_again_pasword:
-            print("You have not same password!! ")
-            return entered_username
-        
-    def verify(self, entered_username, entered_password):
-        if entered_username == self.username:
-            print("This username is allready used")
-            return entered_username
-        elif entered_password != self.password:
-            print("Incorrect password")
-        else:
-            print("You are successfully logged in")
-    
 
-    def creating_new_acc(self, entered_again_pasword, entered_username, objekt):
-        with open("ID.json","w") as file:
-            a = {"username":entered_username, "pasword": entered_again_pasword}
-            print(objekt["users"])
-            objekt["users"].append(a)
-            print(objekt["users"])
-            json.dump(objekt, file, indent= 2 )
+    def second_part(self, entered_password, entered_again_password):
+        if len(entered_password) <= 6 or len(entered_again_password) <= 6:
+            print("You have a short password!")
+            return False
+        return True
+
+    def verify(self):
+        for user in self.data:
+            if user["username"] == self.username:
+                print("This username is already used")
+                return False
+        if self.password != entered_password:
+            print("Incorrect password")
+            return False
+        print("You are successfully logged in")
+        return True
+
+    def creating_new_acc(self, entered_again_password):
+        with open("ID2.json", "w") as file:
+            self.data.append({"username": self.username, "password": entered_again_password})
+            json.dump({"users": self.data}, file, indent=2)
 
 # Získání uživatelského jména a hesla od uživatele
 entered_username = input("Write your username: ")
 entered_password = input("Write your password: ")
-entered_again_pasword = input("write your password again: ")
+entered_again_password = input("Write your password again: ")
+
+# Vytvoření instance registrace
+reg = Registration(entered_username, entered_password, [])
+
+# Zkontrolovat délku hesel
+if not reg.second_part(entered_password, entered_again_password):
+    print("Registration failed. Please enter a valid password.")
+else:
+    # Vytvořit nový účet
+    reg.creating_new_acc(entered_again_password)
+    print("Registration successful!")
