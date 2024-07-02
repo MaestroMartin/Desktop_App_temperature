@@ -1,5 +1,7 @@
 import json
 
+
+
 class User:
     def __init__(self, username, password):
         self.username = username
@@ -17,6 +19,7 @@ class User:
         except json.JSONDecodeError:
             print("Error decoding JSON.")
             return []
+    # load users from json 
 
     def first_part(self, entered_username):
         if len(entered_username) <= 6:
@@ -39,11 +42,12 @@ class User:
                     return False
         print("Incorrect username")
         return False
-
-# Získání uživatelského jména a hesla od uživatele
+    # verification username and password
+    
+# get username and password from user
 entered_username = input("Write your username: ")
 entered_password = input("Write your password: ")
 
-# Vytvoření instance uživatele a přihlášení
+# Create instanc user and logining
 user = User(entered_username, entered_password)
 user.login(entered_username, entered_password)
