@@ -1,131 +1,151 @@
 import sys
-from PyQt6 import QtWidgets
-from PyQt6.QtWidgets import QApplication, QMainWindow,QWidget,QVBoxLayout
-from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QPushButton, QLineEdit, QMessageBox, QLabel
 from PyQt6.QtGui import QPalette, QColor
-from log_in import Login
-from registration import Registration
+from  userlook import Main_window
+
 
 class Color(QWidget):
     def __init__(self, color):
-        super(color, self).__init__()
+        super().__init__()
         self.setAutoFillBackground(True)
         paletta = self.palette()
-        paletta.setColor(QPalette.window,QColor(color))
-        self.setpalette(paletta)
-
-
-        self.layout = QVBoxLayout()
-        self.label = QLabel("Entered_Username")
-        self.username = QLineEdit()
-        self.layout.addWidget(self.label)
-        self.layout.addWidget(self.entered_username)
+        paletta.setColor(QPalette.ColorRole.Window, QColor(color))
+        self.setPalette(paletta)
 
 
 
 class LoginWindow(QWidget):
     def __init__(self):
-        super(LoginWindow,self).__init__(parent=None)
-        self.setGeometry(1200, 300,700,700)
+        super().__init__()
+        self.setGeometry(1200, 300, 700, 700)
         self.setWindowTitle("Martin_first")
         self.setToolTip("Cursor")
         self.initUI()
-        self.Login()
-        
 
-    def initUI(self,Login):
-        self.entered_username = QtWidgets.QLabel(self)
-        self.entered_username.setText("Enter your username: ")
-        self.entered_username.move(50,50)
-        self.username.resize(200, 32)
+    def initUI(self):
+        self.entered_username_label = QLabel(self)
+        self.entered_username_label.setText("Enter your username: ")
+        self.entered_username_label.move(50, 50)
 
-        self.entered_pasword = QtWidgets.QLabel(self)
-        self.entered_pasword.setText("Enter your password:")
-        self.entered_pasword.move(50, 90)
-        self.entered_pasword.resize(200, 32)
-
-        self.txt_entered_username = QtWidgets.QLineEdit(self)
+        self.txt_entered_username = QLineEdit(self)
         self.txt_entered_username.move(200, 50)
         self.txt_entered_username.resize(250, 32)
 
-        self.txt_entered_pasword = QtWidgets.QLineEdit(self)
-        self.txt_entered_pasword.move(200, 90)
-        self.txt_entered_pasword.resize(250,32)
-        self._entered_password.setEchoMode(QLineEdit.EchoMode.entered_Password)
+        self.entered_password_label = QLabel(self)
+        self.entered_password_label.setText("Enter your password:")
+        self.entered_password_label.move(50, 90)
 
-        self.btn_save = QtWidgets.QPushButton(self)
-        self.btn_save.setText("Login")
-        self.btn_save.move(200,130)
+        self.txt_entered_password = QLineEdit(self)
+        self.txt_entered_password.move(200, 90)
+        self.txt_entered_password.resize(250, 32)
+        self.txt_entered_password.setEchoMode(QLineEdit.EchoMode.Password)
 
-        self.register_button = QPushButton("Register")
-        self.layout.addWidget(self.register_button)
+        self.btn_login = QPushButton("Login", self)
+        self.btn_login.move(200, 130)
+        self.btn_login.clicked.connect(self.handle_login)
 
-        self.setLayout(self.layout)
-
-        self.login_button.clicked.connect(self.handle_login)
+        self.register_button = QPushButton("Register", self)
+        self.register_button.move(250, 170)
         self.register_button.clicked.connect(self.open_registration)
-        
-        def handle_login(self):
-        username = self.username.text()
-        password = self.password.text()
-        if login(username, password):
-            print("Login successful")
-        else:
-            print("Login failed")
 
-        def open_registration(self):
-        self.registration_window = RegistrationWindow(self)
+    def handle_login(self):
+        from log_in import User
+        entered_username = self.txt_entered_username.text()
+        entered_password = self.txt_entered_password.text()
+        user = User(entered_username, entered_password)
+        if user.login(entered_username, entered_password):  # Verification Username and password
+            QMessageBox.information(self, "Success", "Login successful")
+            self.open_main_window()                 
+
+            
+        else:
+            QMessageBox.warning(self, "Failed", "Login failed")
+
+    def open_registration(self):
+        self.registration_window = RegistrationWindow()
         self.registration_window.show()
+        self.close()
+
+    def open_main_window(self):  # This show main window
+        self.main_window = Main_window()
+        self.main_window.show()
+        self.close()
 
 
 class RegistrationWindow(QMainWindow):
     def __init__(self):
-        super(Registration_window,self).__init()
-        self.setGeometry(1200, 300,700,700)
+        super().__init__()
+        self.setGeometry(1200, 300, 700, 700)
         self.setWindowTitle("Martin_first")
         self.setToolTip("Cursor")
         self.initUI()
-        self.Registration()
 
     def initUI(self):
+        self.entered_username_label = QLabel(self)
+        self.entered_username_label.setText("Enter your username: ")
+        self.entered_username_label.move(50, 50)
+        self.entered_username_label.resize(150, 32)
 
-        self.entered_username = QtWidgets.Qlabel(self)
-        self.entered_username.setText("Enter your username: ")
-        self.entered_username.move(50, 50)
-        self.entered_username.resize(250,32)
+        self.txt_entered_username = QLineEdit(self)
+        self.txt_entered_username.move(250, 50)
+        self.txt_entered_username.resize(250, 32)
 
-        self.entered_password= QtWidgets.QLabel(self)
-        self.entered_password.setText("Enter your pasword: ")
-        self.entered_password.move(50, 90)
-        self.entered_password.resize(250,32)
+        self.entered_password_label = QLabel(self)
+        self.entered_password_label.setText("Enter your password: ")
+        self.entered_password_label.move(50, 90)
+        self.entered_password_label.resize(150, 32)
 
-        self.entered_again_password = QtWidgets.QLabel(self)
-        self.entered_again_password.setText("Enter you password again: ")
-        self.entered_again_password.move(50, 130)
-        self.entered_again_password.resize(250, 32)         
+        self.txt_entered_password = QLineEdit(self)
+        self.txt_entered_password.move(250, 90)
+        self.txt_entered_password.resize(250, 32)
+        self.txt_entered_password.setEchoMode(QLineEdit.EchoMode.Password)
+
+        self.entered_again_password_label = QLabel(self)
+        self.entered_again_password_label.setText("Enter your password again: ")
+        self.entered_again_password_label.move(50, 130)
+        self.entered_again_password_label.resize(150, 32)
+        
+        self.txt_entered_again_password = QLineEdit(self)
+        self.txt_entered_again_password.move(250, 130)
+        self.txt_entered_again_password.resize(250, 32)
+        self.txt_entered_again_password.setEchoMode(QLineEdit.EchoMode.Password)
+
+        self.btn_register = QPushButton("Register", self)
+        self.btn_register.move(250, 170)
+        self.btn_register.clicked.connect(self.handle_registration)
+
+        self.login_button = QPushButton("Back to Login", self)
+        self.login_button.move(250, 210)
+        self.login_button.clicked.connect(self.open_login_window)
+
+    def handle_registration(self):
+        from registration import Registration
+
+        entered_username = self.txt_entered_username.text()
+        entered_password = self.txt_entered_password.text()
+        entered_again_password = self.txt_entered_again_password.text()
+        reg = Registration(entered_username, entered_password, [])
+        if entered_password == entered_again_password:
+            QMessageBox.information(self, "Success", "Registration successful")
+            self.open_login_window()        
+        elif not reg.second_part(entered_password, entered_again_password):
+            print("Registration failed. Please enter a valid password.")
+        elif reg.creating_new_acc(entered_again_password):
+            print("Registration successful!")
                 
-        self.txt_entered_username = QtWidgets.QLineEdit(self)
-        self.txt_entered_username.move(200,90)
-        self.txt_entered_username.resize(250,32)
-
-        self.txt_entered_password = QtWidgets.QLineEdit(self)
-        self.txt_entered_password.move(200, 90)
-        self.txt_entered_password.resize(250,32)
-       
-        self.txt_entered_again_password = QtWidgets.QLineEdit(self)
-        self.txt_entered_again_password.move(200,90)
-        self.txt_entered_again_password.resize(250,32)
+        else:
+            QMessageBox.warning(self, "Failed", "Passwords do not match")
         
-        
-
+    def open_login_window(self):
+        self.login_window = LoginWindow()
+        self.login_window.show()
+        self.close()
 
 def window():
     app = QApplication(sys.argv)
-    win = my_window()
-    win.show()
+    login_window = LoginWindow()
+    login_window.show()
     sys.exit(app.exec())
 
-
-window()
-
-
+if __name__ == "__main__":
+    window()
