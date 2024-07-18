@@ -1,5 +1,5 @@
 import sys
-from PyQt6.QtWidgets import QApplication, QLabel, QVBoxLayout, QWidget, QPushButton,QMainWindow
+from PyQt6.QtWidgets import QApplication, QLabel, QVBoxLayout, QWidget, QPushButton,QMainWindow, QLayout
 import requests
 from PyQt6.QtCore import QTimer
 from flask import Flask, jsonify
@@ -11,6 +11,7 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.setGeometry(1200, 300, 700, 700)
         self.setToolTip("Cursor")
+        self.setWindowTitle("Thermometer")
         self.initUI()
         self.setWindowTitle("My App")
         
@@ -35,7 +36,7 @@ class MainWindow(QMainWindow):
         self.timer.timeout.connect(self.get_temperature)
         self.timer.start(60000)  # Refresh every 60 seconds
 
-        self.setWindowTitle("Thermometer")
+        
         self.get_temperature()
 
     def get_temperature(self):
