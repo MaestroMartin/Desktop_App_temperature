@@ -4,6 +4,7 @@ import json
 
 class User:
     def __init__(self, username, password):
+        super().__init__()
         self.username = username
         self.password = password
         self.data = self.load()
