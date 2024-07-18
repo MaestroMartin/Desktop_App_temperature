@@ -12,7 +12,7 @@ class User:
         try:
             with open("ID_big_project.json", "r") as file:
                 data = json.load(file)
-                return data["users"]
+                return data["USERS"]
         except FileNotFoundError:
             print("JSON file not found.")
             return []

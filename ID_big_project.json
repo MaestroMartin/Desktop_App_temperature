@@ -2,15 +2,15 @@
     "USERS": [
         {
             "username": "martinek",
-            "pasword": "123456789"
+            "password": "123456789"
         },
         {
             "username": "adamek",
-            "pasword": "2356897"
+            "password": "2356897"
         },
         {
             "username": "kolobrnda",
-            "pasword": "1245789"
+            "password": "1245789"
         }
     ]
 }
