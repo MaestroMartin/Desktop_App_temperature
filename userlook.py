@@ -1,8 +1,9 @@
 import sys
-from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QPushButton, QLineEdit, QMessageBox, QLabel, QLayout, QVBoxLayout
-from PyQt6.QtGui import QPalette, QColor
+from PyQt6.QtWidgets import QApplication, QLabel, QVBoxLayout, QWidget, QPushButton,QMainWindow
 import requests
 from PyQt6.QtCore import QTimer
+from flask import Flask, jsonify
+
 
 class MainWindow(QMainWindow):
     
