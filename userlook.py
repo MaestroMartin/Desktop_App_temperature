@@ -1,5 +1,5 @@
 import sys
-from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QPushButton, QLineEdit, QMessageBox, QLabel, QLayout,QVBoxLayout
+from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QPushButton, QLineEdit, QMessageBox, QLabel, QLayout, QVBoxLayout
 from PyQt6.QtGui import QPalette, QColor
 import requests
 from PyQt6.QtCore import QTimer
@@ -12,7 +12,7 @@ class MainWindow(QMainWindow):
         self.setToolTip("Cursor")
         self.initUI()
         self.setWindowTitle("My App")
-        self.setAutoFillBackground(True)
+        
         
     def initUI(self):
         self.label_c = QLabel("Temperature (C):")
@@ -26,7 +26,7 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.label_time)
         layout.addWidget(self.refresh_button)
 
-        self.setLayout(layout)
+        
         self.refresh_button.clicked.connect(self.get_temperature)
 
         # Timer for automatic refresh
@@ -39,7 +39,7 @@ class MainWindow(QMainWindow):
 
     def get_temperature(self):
         try:
-            response = requests.get('http://<RPI_IP_ADDRESS>:5000/temperature')
+            response = requests.get('http://192.168.0.105:5000/temperature')
             data = response.json()
 
             if 'error' in data:
@@ -55,11 +55,6 @@ class MainWindow(QMainWindow):
             self.label_f.setText("")
             self.label_time.setText("")
 
-    if __name__ == '__main__':
-        app = QApplication(sys.argv)
-        MainWindow = MainWindow()
-        MainWindow.show()
-        sys.exit(app.exec())
 
 
 
