@@ -1,11 +1,14 @@
-
-from PyQt6.QtWidgets import  QLabel, QWidget, QPushButton
+import sys
+from PyQt6.QtWidgets import  QLabel, QWidget, QPushButton, QMainWindow
 import requests
 from PyQt6.QtCore import QTimer, QRect
 
 
 
-class MainWindow(QWidget):
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.initUI()
     
     def initUI(self):
         self.label_c = QLabel("Temperature (C):", self)
@@ -32,7 +35,7 @@ class MainWindow(QWidget):
 
     def get_temperature(self):
         try:
-            response = requests.get('http://<RPI_IP_ADDRESS>:5000/temperature')
+            response = requests.get('http://192.168.0.105:5000/temperature')
             data = response.json()
 
             if 'error' in data:
