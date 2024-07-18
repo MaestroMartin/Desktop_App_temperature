@@ -3,6 +3,7 @@ import json
 
 class Registration:
     def __init__(self, username, password, data):
+        super().__init__()
         self.username = username
         self.password = password
         self.data = self.load()
