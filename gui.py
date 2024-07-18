@@ -1,7 +1,7 @@
 import sys
 from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QPushButton, QLineEdit, QMessageBox, QLabel
 from PyQt6.QtGui import QPalette, QColor
-from  userlook import Main_window
+from  userlook import MainWindow
 
 # import PyQt6 dict 
 # import from file class Main_window
@@ -71,7 +71,7 @@ class LoginWindow(QWidget):
         self.close()
 
     def open_main_window(self):  # This show main window
-        self.main_window = Main_window()
+        self.main_window = MainWindow()
         self.main_window.show()
         self.close()
 
