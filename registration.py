@@ -9,7 +9,7 @@ class Registration:
 
     def load(self):
         try:
-            with open("ID2.json", "r") as file:
+            with open("ID_big_project.json", "r") as file:
                 data = json.load(file)
                 return data["users"]
         except FileNotFoundError:
@@ -42,7 +42,7 @@ class Registration:
         return True
 
     def creating_new_acc(self, entered_again_password):
-        with open("ID2.json", "w") as file:
+        with open("ID_big_project.json", "w") as file:
             self.data.append({"username": self.username, "password": entered_again_password})
             json.dump({"users": self.data}, file, indent=2)
 
