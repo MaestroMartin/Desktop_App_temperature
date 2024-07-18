@@ -1,9 +1,8 @@
 import sys
-from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QPushButton, QLineEdit, QMessageBox, QLabel, QLayout, \
-    QVBoxLayout
+from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QPushButton, QLineEdit, QMessageBox, QLabel, QLayout,QVBoxLayout
 from PyQt6.QtGui import QPalette, QColor
 import requests
-
+from PyQt6.QtCore import QTimer
 
 class MainWindow(QMainWindow):
     
