@@ -57,7 +57,11 @@ class MainWindow(QMainWindow):
             self.label_time.setText("")
 
 
-
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    mainWin = MainWindow()
+    mainWin.show()
+    sys.exit(app.exec())
 
     
 
