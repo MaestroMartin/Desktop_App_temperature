@@ -1,34 +1,24 @@
-import sys
-from PyQt6.QtWidgets import QApplication, QLabel, QVBoxLayout, QWidget, QPushButton,QMainWindow, QLayout
+
+from PyQt6.QtWidgets import  QLabel, QWidget, QPushButton
 import requests
-from PyQt6.QtCore import QTimer
-from flask import Flask, jsonify
+from PyQt6.QtCore import QTimer, QRect
 
 
-class MainWindow(QMainWindow):
+
+class MainWindow(QWidget):
     
-    def __init__(self):
-        super().__init__()
-        self.setGeometry(1200, 300, 700, 700)
-        self.setToolTip("Cursor")
-        self.setWindowTitle("Thermometer")
-        self.initUI()
-        self.setWindowTitle("My App")
-        
-        
     def initUI(self):
-        self.label_c = QLabel("Temperature (C):")
-        self.label_f = QLabel("Temperature (F):")
-        self.label_time = QLabel("Time:")
-        self.refresh_button = QPushButton("Refresh")
-
-        layout = QVBoxLayout()
-        layout.addWidget(self.label_c)
-        layout.addWidget(self.label_f)
-        layout.addWidget(self.label_time)
-        layout.addWidget(self.refresh_button)
-
+        self.label_c = QLabel("Temperature (C):", self)
+        self.label_c.setGeometry(QRect(10, 10, 200, 30))
         
+        self.label_f = QLabel("Temperature (F):", self)
+        self.label_f.setGeometry(QRect(10, 50, 200, 30))
+        
+        self.label_time = QLabel("Time:", self)
+        self.label_time.setGeometry(QRect(10, 90, 200, 30))
+        
+        self.refresh_button = QPushButton("Refresh", self)
+        self.refresh_button.setGeometry(QRect(10, 130, 100, 30))
         self.refresh_button.clicked.connect(self.get_temperature)
 
         # Timer for automatic refresh
@@ -36,12 +26,13 @@ class MainWindow(QMainWindow):
         self.timer.timeout.connect(self.get_temperature)
         self.timer.start(60000)  # Refresh every 60 seconds
 
-        
+        self.setWindowTitle("Thermometer")
+        self.setGeometry(100, 100, 300, 200)  # Set the window size and position
         self.get_temperature()
 
     def get_temperature(self):
         try:
-            response = requests.get('http://192.168.0.105:5000/temperature')
+            response = requests.get('http://<RPI_IP_ADDRESS>:5000/temperature')
             data = response.json()
 
             if 'error' in data:
@@ -56,15 +47,6 @@ class MainWindow(QMainWindow):
             self.label_c.setText(f"Error: {str(e)}")
             self.label_f.setText("")
             self.label_time.setText("")
-
-
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    mainWin = MainWindow()
-    mainWin.show()
-    sys.exit(app.exec())
-
-    
 
     
 
