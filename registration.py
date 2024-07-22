@@ -21,6 +21,10 @@ class Registration:
         except json.JSONDecodeError:
             print("Error decoding Json.")
             return []
+    
+    def save(self):
+        with open("ID_big_project.json", "w") as file:
+            json.dump({"USERS": self.data}, file, indent=2)
 
     def first_part(self, entered_username):
         if len(entered_username) <= 6:
@@ -52,9 +56,7 @@ class Registration:
             "password_hash": password_hash,
             "salt": salt.hex()  # Uložíme sůl jako hexadecimální řetězec
         })
-        with open("ID_big_project.json", "w") as file:
-            self.data.append({"username": self.username, "password": password_hash})
-            json.dump({"users": self.data}, file, indent=2)
+        self.save()
 
     def generate_salt(self, length=16):
         return os.urandom(length)

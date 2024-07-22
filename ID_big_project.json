@@ -2,15 +2,18 @@
     "USERS": [
         {
             "username": "martinek",
-            "password": "123456789"
+            "password": "123456789",
+            "salt":1111111111111111
         },
         {
             "username": "adamek",
-            "password": "2356897"
+            "password": "2356897",
+            "salt": 1111111111111111  
         },
         {
             "username": "kolobrnda",
-            "password": "1245789"
+            "password": "1245789",
+            "salt":1111111111111111
         }
     ]
 }
