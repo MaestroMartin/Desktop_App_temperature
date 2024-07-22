@@ -32,7 +32,7 @@ class Registration:
             return entered_username
 
     def second_part(self, entered_password, entered_again_password):
-        if len(entered_password) <= 6 or len(entered_again_password) <= 6:
+        if len(entered_password) <= 6 and len(entered_again_password) <= 6:
             print("You have a short password!")
             return False
         return True

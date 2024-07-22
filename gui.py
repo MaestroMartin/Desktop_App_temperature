@@ -135,6 +135,12 @@ class RegistrationWindow(QMainWindow):
                 
         else:
             QMessageBox.warning(self, "Failed", "Passwords do not match")
+
+            if reg.creating_new_acc(entered_again_password):
+                QMessageBox.information(self, "Success", "Registration successful")
+                self.open_login_window()  # Implement this if you have a login window
+            else:
+                QMessageBox.warning(self, "Failed", "Registration failed")
         
     def open_login_window(self):
         self.login_window = LoginWindow()

@@ -41,7 +41,7 @@ class User:
 
     def login(self, entered_username, entered_password ):
         for user in self.data:
-            if user['username'] == entered_username:
+            if user['entered_username'] == entered_username:
                 salt = bytes.fromhex(user['salt'])
                 entered_password_hash = self.hash_password(entered_password, salt)
                 if user['password_hash'] == entered_password_hash:
@@ -55,8 +55,8 @@ class User:
     # verification username and password
     
 # get username and password from user
-entered_username = input("Write your username: ")
-entered_password = input("Write your password: ")
+entered_username = input()
+entered_password = input()
 
 # Create instanc user and logining
 user = User(entered_username, entered_password)

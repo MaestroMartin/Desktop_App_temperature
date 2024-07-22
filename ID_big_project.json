@@ -1,19 +1,9 @@
 {
-    "USERS": [
-        {
-            "username": "martinek",
-            "password": "123456789",
-            "salt":1111111111111111
-        },
-        {
-            "username": "adamek",
-            "password": "2356897",
-            "salt": 1111111111111111  
-        },
-        {
-            "username": "kolobrnda",
-            "password": "1245789",
-            "salt":1111111111111111
-        }
-    ]
+  "USERS": [
+    {
+      "entered_username": "toblerone",
+      "password_hash": "032e5844a0c00adec06a14aac7c3512ce1de947576b7d967270e77b99cd98362",
+      "salt": "b4fd9fc3c2b824545a04109884bfc214"
+    }
+  ]
 }
