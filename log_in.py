@@ -1,5 +1,6 @@
 import json
-
+import os
+import hashlib
 
 
 class User:
@@ -31,11 +32,19 @@ class User:
         if len(entered_password) <= 8:
             print("You have a short password!")
             return entered_username
+        
+    def generate_salt(self, length=16):
+        return os.urandom(length)
+    
+    def hash_password(self, password, salt):
+        return hashlib.sha256(password.encode() + salt).hexdigest()
 
-    def login(self, entered_username, entered_password):
+    def login(self, entered_username, entered_password ):
         for user in self.data:
             if user['username'] == entered_username:
-                if user['password'] == entered_password:
+                salt = bytes.fromhex(user['salt'])
+                entered_password_hash = self.hash_password(entered_password, salt)
+                if user['password_hash'] == entered_password_hash:
                     print("You are successfully logged in")
                     return True
                 else:

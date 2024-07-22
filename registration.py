@@ -56,6 +56,13 @@ class Registration:
             self.data.append({"username": self.username, "password": password_hash})
             json.dump({"users": self.data}, file, indent=2)
 
+    def generate_salt(self, length=16):
+        return os.urandom(length)
+
+    def hash_password(self, password, salt):
+        return hashlib.sha256(password.encode() + salt).hexdigest()
+
+
 # Získání uživatelského jména a hesla od uživatele
 entered_username = input("Write your username: ")
 entered_password = input("Write your password: ")
