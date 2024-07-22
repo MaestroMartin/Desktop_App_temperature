@@ -1,4 +1,6 @@
 import json
+import hashlib
+import os
 
 
 class Registration:
@@ -42,9 +44,16 @@ class Registration:
         print("You are successfully logged in")
         return True
 
-    def creating_new_acc(self, entered_again_password):
+    def creating_new_acc(self, entered_again_password ):
+        salt = self.generate_salt()
+        password_hash = self.hash_password(entered_again_password, salt)
+        self.data.append({
+            "username": self.username,
+            "password_hash": password_hash,
+            "salt": salt.hex()  # Uložíme sůl jako hexadecimální řetězec
+        })
         with open("ID_big_project.json", "w") as file:
-            self.data.append({"username": self.username, "password": entered_again_password})
+            self.data.append({"username": self.username, "password": password_hash})
             json.dump({"users": self.data}, file, indent=2)
 
 # Získání uživatelského jména a hesla od uživatele
